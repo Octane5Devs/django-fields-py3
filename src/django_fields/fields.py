@@ -56,9 +56,9 @@ class BaseEncryptedField(models.Field):
                 DeprecationWarning,
             )
         try:
-            imp = __import__('Crypto.Cipher', globals(), locals(), [self.cipher_type], -1)
+            imp = __import__('Cryptdome.Cipher', globals(), locals(), [self.cipher_type], -1)
         except:
-            imp = __import__('Crypto.Cipher', globals(), locals(), [self.cipher_type])
+            imp = __import__('Cryptodome.Cipher', globals(), locals(), [self.cipher_type])
         self.cipher_object = getattr(imp, self.cipher_type)
         if self.block_type:
             self.prefix = '$%s$%s$' % (self.cipher_type, self.block_type)
