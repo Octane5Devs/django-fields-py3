@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.3.0'
+version = '0.3.1'
 
 setup(
     name='django-fields',
@@ -13,8 +13,8 @@ setup(
     url='http://github.com/svetlyak40wt/django-fields/',
     install_requires=[
         'django',
-        'pycrypto',
-        'pycryptodomex'
+        # 'pycrypto',
+        'pycryptodomex',
         'nose',
         'django-nose==1.4.4',
         'tox',
