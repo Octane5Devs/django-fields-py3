@@ -64,9 +64,9 @@ class BaseEncryptedField(models.Field):
             self.prefix = '$%s$%s$' % (self.cipher_type, self.block_type)
             self.iv = Random.new().read(self.cipher_object.block_size)
             self.cipher = self.cipher_object.new(
-                self.secret_key,
+                self.secret_key.encode('utf8'),
                 getattr(self.cipher_object, self.block_type),
-                self.iv)
+                self.iv.encode('utf8'))
         else:
             self.cipher = self.cipher_object.new(self.secret_key)
             self.prefix = '$%s$' % self.cipher_type
