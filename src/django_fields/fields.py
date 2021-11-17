@@ -66,7 +66,7 @@ class BaseEncryptedField(models.Field):
             self.cipher = self.cipher_object.new(
                 self.secret_key.encode('utf8'),
                 getattr(self.cipher_object, self.block_type),
-                self.iv.encode('utf8'))
+                self.iv)
         else:
             self.cipher = self.cipher_object.new(self.secret_key)
             self.prefix = '$%s$' % self.cipher_type
