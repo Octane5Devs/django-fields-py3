@@ -61,11 +61,12 @@ class BaseEncryptedField(models.Field):
             imp = __import__('Cryptodome.Cipher', globals(), locals(), [self.cipher_type])
         self.cipher_object = getattr(imp, self.cipher_type)
         if self.block_type:
+            block_type = self.block_type.decode('utf8') if type(self.block_type) == bytes else self.block_type
             self.prefix = '$%s$%s$' % (self.cipher_type, self.block_type)
             self.iv = Random.new().read(self.cipher_object.block_size)
             self.cipher = self.cipher_object.new(
                 self.secret_key.encode('utf8'),
-                getattr(self.cipher_object, self.block_type),
+                getattr(self.cipher_object, block_type),
                 self.iv)
         else:
             self.cipher = self.cipher_object.new(self.secret_key)
